@@ -9,7 +9,6 @@ private:
     size_t _size;
     int* _powers;
 public:
-    Monom* Next = nullptr;
     Monom() : _coef(0), _size (0), _powers(new int [_size]){}
     
     Monom(double coef, size_t size, int* powers){
@@ -31,11 +30,25 @@ public:
     ~Monom(){ delete [] _powers; _powers = nullptr;}
 
     bool IsPowerEqual(const Monom& monom){
-
+        if (_size != monom._size) return false;
+        for (int i = 0; i < _size; i++){
+            if (_powers[i] != monom._powers[i]) return false;
+        }
+        return true;
     }
 
     Monom& operator=(const Monom& tmp) {
-
+        if(&tmp == this){
+            return *this;
+        }
+        _coef = tmp._coef;
+        _size = tmp._size;
+        delete _powers;
+        _powers = new int[_size];
+        for (int i = 0; i < _size; i++){
+            _powers[i] = tmp._powers[i];
+        }
+        return *this;
     }
 
     Monom operator+(const Monom& tmp) {
@@ -86,7 +99,7 @@ public:
         }
         return Monom(_coef / tmp._coef, _size, new_powers);
     }
-    
+
     void Print(){
 
         if (_coef != 0){
