@@ -111,6 +111,16 @@ public:
         }
     }
 
-
+    Monom operator*(const int& elem) const{
+       return Monom(_coef * elem, _size, _powers);
+    }
+    bool operator>=(const Monom& mon) const{
+    for (int i = 0; i < _size; i++){
+        if (_powers[i] < mon._powers[i]){
+            return false;
+        }
+    }
+    return true;
+}
 
 };
