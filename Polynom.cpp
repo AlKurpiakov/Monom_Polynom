@@ -16,29 +16,31 @@ Polynom::Polynom(const Polynom& tmp) {
 }
 
 void Polynom::AppendMonom(Monom monom) {
+    
+    Node* NewMonom = new Node(monom);
     if (_head == nullptr) {
-        _head = new Node(monom);
+        _head = NewMonom;
     } 
     else 
     {
         Node* tmp = _head;
         while (tmp->Next != nullptr) {
-            if (tmp->GetMonom().CanOperate(monom)) {
+            if (tmp->GetMonom().IsPowerswEquel(monom)) {
                 Monom result = tmp->GetMonom() + monom;
                 if (!result.GetCoef()){
                     DeleteMonom(tmp);
                 }
-                tmp->SetMonom(result);
+                tmp->Update(result);
                 return;
             }
             tmp = tmp->Next;
         }
-        if (tmp->GetMonom().CanOperate(monom)) {
+        if (tmp->GetMonom().IsPowerswEquel(monom)) {
                 Monom result = tmp->GetMonom() + monom;
-                tmp->SetMonom(result);
+                tmp->Update(result);
                 return;
         }
-        tmp->Next = new Node(monom);
+        tmp->Next = NewMonom;
     }
 }
 
@@ -49,7 +51,7 @@ void Polynom::Print() {
             tmp->GetMonom().print();
         else {
             if (tmp->GetMonom().GetCoef() > 0)
-                cout << "+";
+                std::cout << " + ";
             tmp->GetMonom().print();
         }
         tmp = tmp->Next;
@@ -131,6 +133,7 @@ Polynom Polynom::operator/(const Polynom& polynom) const {
         delete temp3;
         m1 = temp1.MaxMonom();
     }
+    temp1.Print();
     return res;
 }
 

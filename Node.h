@@ -9,7 +9,7 @@ public:
     Node(Monom monom): _monom(monom) {
     }
 
-    void SetMonom(Monom monom) {
+    void Update(Monom monom) {
         _monom = monom;
     }
 
