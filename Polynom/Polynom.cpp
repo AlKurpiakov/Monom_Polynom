@@ -49,7 +49,7 @@ void Polynom::Print() {
             tmp->GetMonom().print();
         else {
             if (tmp->GetMonom().GetCoef() > 0)
-                std::cout << "+";
+                cout << "+";
             tmp->GetMonom().print();
         }
         tmp = tmp->Next;
@@ -131,9 +131,6 @@ Polynom Polynom::operator/(const Polynom& polynom) const {
         delete temp3;
         m1 = temp1.MaxMonom();
     }
-    std::cout<<"Remainder: ";
-    temp1.Print();
-    std::cout<<"\n";
     return res;
 }
 
