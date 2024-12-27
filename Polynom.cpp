@@ -72,17 +72,37 @@ void Polynom::AppendMonom(Monom monom) {
     }
 }
 
+
+
 void Polynom::Print() {
     Node* tmp = _head;
+
     while (tmp != nullptr) {
-        if (tmp == _head)
-            tmp->GetMonom().print();
+        if (tmp == _head){
+            cout << Monom(tmp->GetMonom()).Mask();
+        }
         else {
-            if (tmp->GetMonom().GetCoef() > 0)
-                std::cout << " + ";
-            tmp->GetMonom().print();
+            cout << "   ";
+            cout << Monom(tmp->GetMonom()).Mask();
         }
         tmp = tmp->Next;
+    }
+
+    cout << endl;
+
+    Node* tmp2 = _head;
+    while (tmp2 != nullptr) {
+        if (tmp2 == _head){
+            tmp2->GetMonom().Print();
+        }
+        else {
+            if (tmp2->GetMonom().GetCoef() > 0)
+                cout << " + ";
+            else
+                cout << " - ";
+            tmp2->GetMonom().Print();
+        }
+        tmp2 = tmp2->Next;
     }
 }
 
@@ -149,8 +169,8 @@ Polynom Polynom::operator/(const Polynom& polynom) const {
     Polynom res;
     Polynom temp1(*this);
     Polynom temp2;
-    Monom m1 = temp1.MaxMonom();
-    Monom m2 = polynom.MaxMonom();
+    Monom m1 = temp1.Lead();
+    Monom m2 = polynom.Lead();
     while(m1 >= m2){
         Monom m = m1 / m2;
         res.AppendMonom(m);
@@ -159,13 +179,13 @@ Polynom Polynom::operator/(const Polynom& polynom) const {
         temp2 = *temp3 * polynom;
         temp1 = temp1 - temp2;
         delete temp3;
-        m1 = temp1.MaxMonom();
+        m1 = temp1.Lead();
     }
     temp1.Print();
     return res;
 }
 
-Monom Polynom::MaxMonom() const{
+Monom Polynom::Lead() const{
     Monom m = _head->GetMonom();
     Node* temp = _head->Next;
     while (temp != nullptr){

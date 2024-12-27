@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cstdint>
+#include <math.h>
+#include <stdio.h>
 using namespace std;
 
 
@@ -11,8 +13,9 @@ private:
 public:
     Monom(double coef, size_t size, int* powers);
     double GetCoef() const;
-    void print() const;
+    void Print() const;
     Monom(const Monom& mon);
+    string Mask();
     bool operator==(const Monom& m) const;
     Monom& operator=(const Monom& mon);
     Monom operator+(const Monom& mon)const;

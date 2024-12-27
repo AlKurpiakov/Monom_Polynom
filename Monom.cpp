@@ -1,4 +1,44 @@
 #include "Monom.h"
+#include <iostream>
+#include <string>
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <iomanip>
+#include <cmath>
+
+int getlenafpoint(double num) {
+    ostringstream oss;
+    oss << fixed << std::setprecision(15) << num;
+    string s = oss.str();  
+
+    while (!s.empty() && s.back() == '0') {
+        s.pop_back();
+    }
+
+    if (!s.empty() && s.back() == '.') {
+        s.pop_back();
+    }
+
+    size_t count_after_decimal;
+    size_t pos = s.find('.');
+
+    if (pos == string::npos) 
+        count_after_decimal = 0;
+
+    else  
+        count_after_decimal = s.size() - pos - 1;
+    
+
+    return count_after_decimal;
+}
+
+
+int length(int n) {
+    int l = 1;
+    for(; n/=10; ++l);
+    return l;
+}
 
 Monom::Monom(double coef, size_t size, int* powers){
     _coef = coef;
@@ -10,21 +50,55 @@ double Monom::GetCoef() const {
     return _coef;
 }
 
-void Monom::print() const{
+string Monom::Mask(){
+    string mask;
+
+    int j = _coef;
+    double uu;
+
+    int t = length(j);
+    while(t-- ) cout << " ";
+
+    double jl;
+    uu = modf(_coef, &jl);
+
+    double mm, nn;
+
+    if (uu != 0) cout << " ";
+
+    size_t len = getlenafpoint(_coef);
+
+    while (len--)
+        cout << " ";
+
+
+    for (int i = 0; i < _size; i++){
+        int jj = i+1;
+        do{
+            mask += " ";
+            jj /= 10;
+        }while(jj / 10 != 0);
+        mask += " ";
+        mask += to_string(_powers[i]);
+    }
+    return mask;
+}
+
+void Monom::Print() const{
     if (_coef == 0) return;
 
     
-    cout<<_coef;
-
+    cout<<abs(_coef);
+    int pow;
     for (size_t i = 0; i < _size; i++){
-        if (_powers[i] != 0)
-        {
-            cout<<"x"<<i+1; 
-            if (_powers[i] != 1)
-                cout<<"^"<<_powers[i];
+        pow = _powers[i];
+        cout<<"x"<<i+1; 
+        while(pow % 10 != 0){
+            cout << " ";
+            pow /= 10;
         }
     }
-    cout << " ";
+
 }
 
 Monom::Monom(const Monom& mon){

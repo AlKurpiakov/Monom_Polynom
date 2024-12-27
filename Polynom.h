@@ -4,7 +4,7 @@
 class Polynom {
 private:
     Node* _head;
-    Monom MaxMonom() const;
+    Monom Lead() const;
 
 public:
     Polynom();
@@ -13,6 +13,7 @@ public:
     void AppendMonom(double coef, size_t size, int* powers);
     void DeleteMonom(Node* monom);
     void Print();
+    string GetLen();
     Polynom operator+(const Polynom& polynom) const;
     Polynom operator-(const Polynom& polynom) const;
     Polynom operator*(const Polynom& polynom) const;
