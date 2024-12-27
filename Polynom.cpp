@@ -1,6 +1,4 @@
 #include "Polynom.h"
-#include <cstdint>
-#include <cstring>
 
 Polynom::Polynom() {
     _head = nullptr;
@@ -12,6 +10,36 @@ Polynom::Polynom(const Polynom& tmp) {
     while (tmpHead != nullptr) {
         AppendMonom(tmpHead->GetMonom());
         tmpHead = tmpHead->Next;
+    }
+}
+
+void Polynom::AppendMonom(double coef, size_t size, int* powers){
+    
+    Node* NewMonom = new Node(coef, size, powers);
+
+    if (_head == nullptr) {
+        _head = NewMonom;
+    } 
+    else 
+    {
+        Node* tmp = _head;
+        while (tmp->Next != nullptr) {
+            if (tmp->GetMonom().IsPowerswEquel(Monom(coef, size, powers))) {
+                Monom result = tmp->GetMonom() + Monom(coef, size, powers);
+                if (!result.GetCoef()){
+                    DeleteMonom(tmp);
+                }
+                tmp->Update(result);
+                return;
+            }
+            tmp = tmp->Next;
+        }
+        if (tmp->GetMonom().IsPowerswEquel(Monom(coef, size, powers))) {
+                Monom result = tmp->GetMonom() + Monom(coef, size, powers);
+                tmp->Update(result);
+                return;
+        }
+        tmp->Next = NewMonom;
     }
 }
 

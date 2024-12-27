@@ -9,6 +9,9 @@ public:
     Node(Monom monom): _monom(monom) {
     }
 
+    Node(double coef, size_t size, int* powers): _monom(Monom(coef,  size, powers)) {
+    }
+
     void Update(Monom monom) {
         _monom = monom;
     }

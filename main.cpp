@@ -1,44 +1,25 @@
-#include <iostream>
 #include "Polynom.h"
 
-void foo1(){
-    Polynom p;
-    Monom a1 = Monom(4, 1, new int[1]{2});
-    Monom a2 = Monom(1, 1, new int[1]{1});
-    Monom a3 = Monom(3, 1, new int[1]{0});
-    p.AppendMonom(a1);
-    p.AppendMonom(a2);
-    p.AppendMonom(a3);
-    Polynom p1;
-    Monom b1 = Monom(2, 1, new int[1]{2});
-    Monom b2 = Monom(-1, 1, new int[1]{0});
-    p1.AppendMonom(b1);
-    p1.AppendMonom(b2);
-    Polynom p2 = p / p1;
-    p2.Print();
-    std::cout << "\n\n";
-}
-
-void foo2(){
-    Polynom p;
-    Monom a1 = Monom(4, 2, new int[2]{2, 2});
-    Monom a2 = Monom(1, 2, new int[2]{1, 0});
-    Monom a3 = Monom(1, 2, new int[2]{0, 2});
-    p.AppendMonom(a1);
-    p.AppendMonom(a2);
-    p.AppendMonom(a3);
-    Polynom p1;
-    Monom b1 = Monom(1, 2, new int[2]{2, 0});
-    Monom b2 = Monom(1, 2, new int[2]{0, 0});
-    p1.AppendMonom(b1);
-    p1.AppendMonom(b2);
-    Polynom p2 = p / p1;
-    p2.Print();
-    std::cout << "\n\n";
-}
 
 int main(){
-    foo1();
-    foo2();
+    Polynom p1;
+    Monom m1(1.0, 1, new int[1]{2});
+    Monom m2(-2.0, 1, new int[1]{1});
+    Monom m3(1.0, 1, new int[1]{0});
+    Monom m4(1.0, 1, new int[1]{1});
+    Monom m5(-1.0, 1, new int[1]{0});
+
+    p1.AppendMonom(m1);
+    p1.AppendMonom(m2);
+    p1.AppendMonom(m3);
+    Polynom p2;
+    p2.AppendMonom(m4);
+    p2.AppendMonom(m5);   
+
+
+    Polynom p3;
+    p3 = p1/ p2;
+    p3.Print();
+    cout << endl;
     return 0;
 }
