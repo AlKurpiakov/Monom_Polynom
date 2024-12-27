@@ -15,7 +15,6 @@ int main(){
     p1.AppendMonom(b1);
     p1.AppendMonom(b2);
     Polynom p2 = p0 / p1;
-    std::cout<<"res: ";
     p2.Print();
     std::cout << "\n";
     
