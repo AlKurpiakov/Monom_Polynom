@@ -13,7 +13,7 @@ double Monom::GetCoef() const {
 void Monom::print() const{
     if (_coef == 0) return;
 
-    std::cout<<_coef;
+    cout<<_coef;
 
     for (size_t i = 0; i < _size; i++){
         if (_array[i] != 0)
